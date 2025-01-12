@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marítima</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #00aaff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #1e1e50;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005fa3;
+        }
+        .options {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .answers {
+            list-style-type: none;
+            padding: 0;
+        }
+        .answers li {
+            margin-bottom: 10px;
+        }
+        .correct {
+            background-color: #c8e6c9;
+            color: #256029;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .incorrect {
+            background-color: #ffcdd2;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        const questions = {
+            tema0: [
+                { question: "Los 46 puertos de interés general en España...", options: ["... están gestionados por las 28 autoridades portuarias.", "... están gestionados directamente por Puertos del Estado.", "... están gestionados por las 46 autoridades portuarias.", "... se gestionan por las Comunidades Autónomas en régimen de cesión de competencias."], correct: 0 },
+                { question: "De las siguientes condiciones, ¿cuál NO es suficiente para que un puerto sea declarado de interés general?", options: ["Que registre un tráfico de pasajeros muy importante.", "Que el hinterland abarque de forma significativa a más de una comunidad autónoma.", "Que sirva a industrias o establecimientos de importancia estratégica para la economía nacional.", "Que constituyan elementos esenciales para la seguridad del tráfico marítimo, especialmente en las islas."], correct: 0 },
+                { question: "De las siguientes, ¿cuál es NO una condición necesaria para que una instalación sea considerada como puerto marítimo?", options: ["Tener una superficie de agua no inferior a 500 m2", "Poseer zonas de fondeo, muelles o instalaciones de atraque", "Estar dotada de espacios para depósito y almacenamiento de mercancías o enseres", "Tener infraestructuras terrestres y accesos adecuados a su tráfico"], correct: 0 },
+                { question: "De los siguientes, ¿cuál puede ser considerado 'puerto comercial' según la Ley de Puertos del Estado y la Marina Mercante?", options: ["El puerto pesquero de Restinga, en El Hierro", "El puerto deportivo de Marina Rubicón, en Lanzarote", "El puerto de abrigo de la central eléctrica de Granadilla", "El puerto de Corralejo, en Fuerteventura"], correct: 3 },
+                { question: "¿Cuál de las siguientes afirmaciones NO es cierta según la Ley de Puertos del Estado y la Marina Mercante?", options: ["El dominio público marítimo terrestre forma parte del dominio público portuario", "Los puertos que gestionan las comunidades autónomas no devienen canon por ocupación del dominio público marítimo terrestre", "Los municipios y comunidades autónomas intervienen en la ordenación de los usos del suelo portuario (sistema general portuario) mediante planes especiales o instrumento equivalente", "En los puertos se permiten usos vinculados a la interacción puerto-ciudad, tales como equipamientos culturales, recreativos, certámenes feriales, exposiciones...."], correct: 0 },
+                { question: "De los siguientes, ¿Cuál no forma parte del Dominio Público Marítimo Terrestre según la Ley de Costas?", options: ["Los acantilados con ángulo no superior a los 60º, hasta su coronación", "Las dunas en cabecera de playa, hasta el límite necesario para garantizar la estabilidad de la costa", "La franja comprendida entre la bajamar escorada máxima y el límite al que llegan las olas en los mayores temporales conocidos", "El lecho marino y el subsuelo del mar territorial y las aguas interiores"], correct: 0 },
+                { question: "De las siguientes, ¿cuál no es una franja paralela a la costa?", options: ["La servidumbre de acceso", "La servidumbre de tránsito", "La servidumbre de protección", "La zona de influencia"], correct: 0 },
+                { question: "Para verificar y evaluar la fiabilidad de la obra marítima frente a los modos de fallo y a los de parada operativa, en la ROM 0.0-01, se recogen:", options: ["Métodos de nivel I, II y III", "Periodos de retorno no inferiores a 500 años", "Tablas de coeficientes de seguridad", "Fórmulas de coeficientes variables"], correct: 0 },
+                { question: "En el atlas de clima marítimo de España, incluido en La ROM 0.3-91:", options: ["... el litoral español se divide en 10 tramos o zonas marítimas", "... se proporcionan las series de datos históricos de todas las boyas de medida", "... se incluyen los datos de altura de ola visual medidas desde barcos en ruta", "... se especifican las normas para el cálculo de los temporales de diseño"], correct: 0 },
+                { question: "El dominio público portuario estatal ...", options: ["... no está incluido en el dominio público marítimo terrestre, que solo afecta a la costa no portuaria", "... no incluye las obras que el Estado o las Autoridades Portuarias realicen en dicho dominio", "... no incluye las aguas abrigadas de los puertos de titularidad autonómica", "... no incluye los faros y otras obras aisladas de señalización marítima"], correct: 2 }
+            ],
+            tema1: [
+                { question: "De las siguientes, ¿cuál NO es una condición de contorno del modelo del oleaje?", options: ["La velocidad normal a la superficie es nula", "El movimiento neto de las partículas es cero (órbitas cerradas)", "Las partículas de la superficie permanecen en la superficie", "La presión en la superficie es igual a la presión atmosférica"], correct: 1 },
+                { question: "De las siguientes, ¿cuál NO es una teoría del oleaje?", options: ["La teoría de Airy", "La teoría de Stokes de 2° orden, 3° orden,...", "La teoría de Le Méhaute", "La teoría de Korteweg-DeVries"], correct: 2 },
+                { question: "La altura de ola significante…", options: ["... es el la altura de ola promedio del tercio de olas más altas en oleaje regular (ola 'monocromática')", "... es el la altura de ola superada por el tercio de olas más altas en oleaje regular (ola 'monocromática')", "... es el la altura de ola promedio del tercio de olas más altas en oleaje irregular ('estado del mar')", "… es el la altura de ola superada por el tercio de olas más altas en oleaje irregular ('estado del mar')"], correct: 3 },
+                { question: "De las siguientes, ¿qué ondulación de la superficie del mar se considera oleaje?", options: ["Ondas generadas por el viento, de 120 segundos de periodo", "Ondas generadas por variación local de la presión atmosférica", "Ondas causadas por desplome del frente glaciar costero en el ártico, de 22 s de periodo", "Ondas generadas por el viento de velocidad y dirección no constantes, de 16 s de periodo"], correct: 3 },
+                { question: "De las siguientes, ¿cuál NO es una hipótesis de la teoría lineal del oleaje?", options: ["La fuerza de Coriolis es despreciable", "El fluido tiene viscosidad nula", "El fondo es impermeable, con pendiente no necesariamente nula", "Las ondas son de cresta indefinida y planas"], correct: 2 },
+                { question: "La fórmula de Fenton-McKee ...", options: ["... sustituye a la relación de dispersión en aguas de transición en la teoría C-noidal del oleaje", "..permite calcular de forma explícita el valor aproximado de la longitud de onda en la teoría lineal conocido el periodo de la ola", "... permite aproximar el valor del periodo del oleaje en la teoría lineal conocida la longitud de onda", "... no es válida en la teoría de Stokes de 2o orden porque la relación de dispersión es diferente que en la teoría lineal"], correct: 1 },
+                { question: "En la teoría C-noidal del oleaje ...", options: ["... el movimiento de las partículas sigue órbitas circulares en aguas profundas y en aguas someras", "... la longitud de la ola está ligada al periodo del oleaje con la misma relación de dispersión que en la teoría lineal", "... se modeliza mejor el oleaje en aguas profundas que el de aguas someras", "... a diferencia de la de Stokes de 2o orden, el nivel medio en movimiento está por encima del nivel medio en reposo"], correct: 3 },
+                { question: "De las siguientes transformaciones que sufre el oleaje al propagarse, ¿en cuál de ellas se ve modificado el periodo?", options: ["En el shoaling, refracción y difracción", "En el shoaling, difracción y rotura", "En la refracción, difracción y reflexión", "En ninguna de las transformaciones del oleaje"], correct: 3 },
+                { question: "Para calcular la altura de la ola H a profundidad h superior a la de rotura a partir de la altura de ola en aguas profundas HO...", options: ["… puede no ser necesario determinar el coeficiente de refracción", "... puede no ser necesario determinar el coeficiente de shoaling", "... puede no ser necesario determinar ni el coeficiente de refracción ni el de shoaling", "… siempre es necesario determinar los coeficientes de refracción y de shoaling"], correct: 0 },
+                { question: "De los siguientes tipos de rotura del oleaje, ¿cuál es el que corresponde a valores más bajos del n° de Iribarren?", options: ["La rotura por descrestamiento", "La rotura en voluta", "La rotura por colapso", "La rotura por surgencia"], correct: 0 }
+            ],
+            tema2: [
+                { question: "Los modelos paramétricos de modelización del oleaje…", options: ["… determinan los parámetros del estado del mar a partir del espectro direccional obtenido por elementos finitos", "… calculan directamente la altura de ola, el período y/o la dirección de procedencia a partir de datos meteorológicos", "... no precisan de datos meteorológicos para caracterizar el estado del mar", "... como Iribarren, JONSWAP, HIND, etc., calculan la altura de ola y el periodo a partir del fetch"], correct: 1 },
+                { question: "En el método JONSWAP, el oleaje generado se denomina 'limitado por fetch' ...", options: ["... cuando la altura de ola significante adimensional Hmo* es inferior al valor Límite 0,243", "... cuando el fetch adimensional F*_eff obtenido a partir de la duración es menor que el obtenido a partir del fetch adimensional F*", "…cuando el fetch adimensional F*_eff obtenido a partir de la duración es mayor que el obtenido a partir del fetch adimensional F", "…cuando el periodo pico adimensional Tp* es inferior al valor limite 8,13"], correct: 2 },
+                { question: "La distancia medida en la superficie del océano a lo largo de la cuál el viento de dirección y velocidad sensiblemente constantes incide generando oleaje ...", options: ["…está limitada por la velocidad del viento", "... está limitada por la duración del viento", "... se mide con el método de los nueve rayos", "... se denomina fetch"], correct: 3 },
+                { question: "El oleaje que ha abandonado el área de generación y se propaga en océano abierto sin amplificación significativa por transferencia de energía de los agentes atmosféricos…", options: ["... es de tipo SEA o mar de viento", "... se caracteriza por tener un rango de periodos pequeño, en torno a uno principal o periodo pico", "... se caracteriza por tener un amplio rango de periodos, generalmente pequeños, y grandes peraltes de ola", "... se caracteriza por tener altura, periodo, fase y dirección de propagación aleatorias e independientes, dando aspecto caótico a la superficie"], correct: 1 },
+                { question: "El oleaje de tipo SEA…", options: ["... se caracteriza por olas muy peraltadas, en una amplia gama de periodos, generalmente de pequeña magnitud", "... es totalmente desarrollado cuando el mecanismo de generación está limitado por la longitud del fetch", "... es totalmente desarrollado cuando el mecanismo de generación está limitado por la duración del viento", "... es parcialmente desarrollado cuando las olas comienzan a romper por exceso de peralte"], correct: 0 },
+                { question: "En Ingeniería Marítima, la velocidad básica del viento", options: ["... es la velocidad del viento geostrófico promediada en 10 minutos", "... es la velocidad promediada en 1 h del viento en el océano y a 10 m de altura", "... es la velocidad promediada en 10 minutos que permite determinar el fetch de una perturbación atmosférica sobre el océano", "... es la velocidad promediada en 10 minutos del viento en el océano y a 1 m de altura"], correct: 1 },
+                { question: "Se denomina capa de transición o región de Eckman…", options: ["…a la capa de la troposfera en la que la fuerza de rozamiento con la superficie tiene magnitud comparable a la fuerza de Coriolis", "... a la capa de la troposfera en la que la fuerza de rozamiento con la superficie tiene magnitud comparable al gradiente de presión", "…a la capa de la troposfera en la que la fuerza de rozamiento con la superficie tiene magnitud superior al gradiente de presión", "... a la capa de la troposfera en la que la fuerza de rozamiento con la superficie tiene magnitud inferior al gradiente de presión"], correct: 0 },
+                { question: "De las siguientes fuerzas, ¿cuál NO actúa en una situación con isobaras rectilíneas?", options: ["El gradiente isobárico o de presión", "La fuerza de Coriolis", "El cortante entre capas de aire", "La fuerza centrífuga"], correct: 3 },
+                { question: "La circulación general de la atmósfera NO es la responsable de ...", options: ["... las borrascas o ciclones en torno al paralelo 60° en ambos hemisferios", "... los anticiclones en el límite de las celdas de Hadley y Ferrel", "... los ciclones tropicales, en torno al paralelo 20º en el hemisferio norte", "... las corrientes de chorro (jet stream) subtropical y polar"], correct: 2 },
+                { question: "El viento sobre el océano ...", options: ["... genera la perturbación sobre la superficie conocida como oleaje, pero no las corrientes", "...es generado por un gradiente bárico o de presión, pero no por gradientes térmicos entre masas de aire y de agua", "...puede ser de tipo regular, como el alisio, o los westerlies, pero no de tipo variable o coyuntural como sobre los continentes", "…gira hacia la derecha por la Fuerza de Coriolis en el hemisferio norte, pero no en el hemisferio sur"], correct: 3 }
+
+            ],
+            tema3: [
+                { question: "De los siguientes parámetros del oleaje irregular, ¿cuál no se puede obtener a partir del análisis estadístico de un registro de oleaje?", options: ["La altura significante Hs.", "El periodo pico Tp.", "El periodo medio Tm.", "El número de olas del registro N."], correct: 1 },
+                { question: "De los siguientes parámetros del oleaje irregular, ¿cuál no se puede obtener a partir del análisis espectral de un registro de oleaje?", options: ["La altura significante Hs.", "El periodo pico Tp.", "El periodo medio Tm.", "El número de olas del registro N."], correct: 3 },
+                { question: "El espectro de un estado del mar…", options: ["... representa la densidad de energía del oleaje en el dominio de la frecuencia.", "... no varía en el tiempo, puesto que es proporcional a la energía para cada frecuencia.", "... representa la densidad de energía del oleaje en el dominio del tiempo.", "... permite conocer el flujo de energía del oleaje en cada instante de tiempo."], correct: 0 },
+                { question: "El límite superior del rango de frecuencia en el que se puede representar el espectro…", options: ["... viene dado por el número de olas del registro y corresponde al periodo máximo.", "... viene el ancho de banda y el tamaño del registro, y se llama frecuencia de Nyquist.", "... viene dado por la cadencia y tamaño del registro, y corresponde al periodo mínimo.", "... viene dado por la cadencia y tamaño del registro,y se llama frecuencia de Nyquist."], correct: 1 },
+                { question: "El espectro direccional del oleaje ...", options: ["... presenta un único pico en la dirección de procedencia del oleaje más energético, aunque puede tener picos en otras direcciones.", "... representa la densidad de energía del oleaje procedente desde la dirección de procedencia del oleaje más energético", "... puede presentar más de un pico en la misma dirección de procedencia, pero no en la misma frecuencia.", "... representa la densidad de energía del oleaje procedente de cualquiera de las direcciones del círculo completo."], correct: 3 },
+                { question: "Los espectros de JONSWAP y Pierson-Moskowitz ...", options: ["... son modelos espectrales que aproximan los de estados del mar de viento parcialmente y completamente desarrollados, respectivamente.", "... son espectros de los estados de mar de viento parcialmente y completamente desarrollados, respectivamente.", "... son modelos espectrales que aproximan los de estados del mar de viento completamente y parcialmente desarrollados, respectivamente.", "... son espectros de los estados de mar de viento completamente y parcialmente desarrollados, respectivamente."], correct: 0 },
+                { question: "La distribución estadística de Rayleigh…", options: ["... se emplea para modelizar la altura de ola significante Hs en un estado del mar.", "... es una distribución bipartamétrica que modeliza la altura de ola en un estado del mar", "... se emplea para modelizar la altura de ola y el cuadrado del periodo en un estado del mar", "... se emplea para modelizar la altura de ola raíz-media-cuadrado Hrms en un estado del mar."], correct: 2 },
+                { question: "La desviación de la altura de ola en el método del paso por cero ...", options: ["... se obtiene por regresión lineal de las alturas muestrales frente a la variable reducida Rayleigh.", "... se obtiene como la desviación típica de las alturas de ola muestrales.", "... se obtiene como la desviación típica de los valores de la perturbación eta de la muestra.", "... se obtiene como la raíz cuadrada del momento espectral de orden cero m0."], correct: 0 },
+                { question: "De las siguientes, ¿cuáles son proporcionales a la desviación, sigma, de la variable altura de ola en un estado del mar?", options: ["La altura de ola significante.", "La altura de ola superada únicamente por el 1% de olas más altas.", "La altura máxima esperada en la duración del registro.", "Todas las anteriores."], correct: 3 },
+                { question: "Para que el oleaje, y en general un proceso estocástico, pueda ser analizado estadísticamente con éxito…", options: ["... debe ser estacionario pero no necesariamente ergódico.", "... debe ser ergódico pero no necesariamente estacionario.", "... debe ser ergódico y débilmente estacionario.", "Ninguna de las anteriores es correcta."], correct: 3 }
+
+            ],
+            tema4: [
+                { question: "Las oscilaciones del nivel en cuerpos cerrados o semiabiertos de agua en las que la gravedad actúa para tratar de recuperar el nivel cero cuando desaparece la causa de la perturbación ...", options: [".. se denominan seiches, término de origen suizo, que da nombre a un fenómeno observado frecuentemente en lagos de origen glaciar", "... tienen como consecuencia un incremento del rebase (overtopping) y el runup (remontada), aumentando el riesgo de inundación costera.", "... originan un incremento en el transporte de sedimentos, posiblemente cegando entradas de puertos y bahías.", "... provocan que las olas rompientes en costas y estructuras sean de mayor tamaño por la mayor profundidad a lo largo de las líneas de costas."], correct: 0 },
+                { question: "Las dos principales componentes de la marea astronómica son ...", options: ["La componente lunar semidiurna M1, de periodo 12,42 h y la componente solar semidiurna S1 de periodo 12:00 h", "la componente lunar semidiurna M1, de periodo 12,00 h y la componente solar semidiurna S1 de periodo 12:42 h", "la componente lunar semidiurna M2, de periodo 12,42 h y la componente solar semidiurna S2 de periodo 12:00 h", "La componente lunar semidiurna M2, de periodo 12,00 h y la componente solar semidiurna S2 de periodo 12:42 h"], correct: 2 },
+                { question: "De las siguientes, ¿cuál NO se puede achacar a las alteraciones del cambio climático?", options: ["Las marejadas crecen por la mayor profundidad, pero disminuyen con la severidad de las tormentas.", "Tienen como consecuencia un incremento del rebase (overtopping) y el runup (remontada), aumentando el riesgo de inundación costera.", "Originan un incremento en el transporte de sedimentos, posiblemente cegando entradas de puertos y bahías.", "Provocan que las olas rompientes en costas y estructuras sean de mayor tamaño por la mayor profundidad a lo largo de las líneas de costa actuales."], correct: 0 },
+                { question: "¿Cuáles de las siguientes se consideran oscilaciones del nivel del mar de largo plazo?", options: ["La marejada barométrica, los cambios de nivel de origen eustático e isostático y el cambio climático", "La marea ciclónica, los cambios de nivel de origen eustático e isostático y el cambio climático", "Las fluctuaciones climáticas, los cambios de nivel de origen eustático e isostático y el cambio climático", "La seiche, los cambios de nivel de origen eustático e isostático y el cambio climático."], correct: 2 },
+                { question: "La marejada barométrica se manifiesta sobre el nivel del mar como ...", options: ["... una sobreelevación de aproximadamente 1 cm por cada 1 mb de incremento de la presión atmosférica", ".. una sobreelevación de aproximadamente 1 cm por cada 1 mb de descenso de la presión atmosférica", "... una sobreelevación de aproximadamente 10 cm por cada 1 mb de incremento de la presión atmosférica", "…una sobreelevación de aproximadamente 10 cm por cada 1 mb de descenso de la presión atmosférica"], correct: 2 },
+                { question: "La marea ciclónica…", options: ["... es tanto más acusada cuando más extensa y profunda sea la plataforma litoral inmediata a la costa", "… en cuerpos de agua cerrados (lagos y mares interiores) conlleva tanto un ascenso como un descenso del nivel de la superficie", "... es imperceptible en costas con plataforma continental extensa y poco profunda", "... es la causa de las inundaciones marinas en las cotas de Canarias sometidas a oleaje de tipo Swell del N y NW"], correct: 1 },
+                { question: "La oscilación de la marea astronómica en las bahías y puertos...", options: [".. está sujeta a los fenómenos de flujo (flood tide) y reflujo (ebb tide) en el canal o bocana", "... se adelanta a la oscilación en el mar abierto por la mayor celeridad de la onda de marea en el cuerpo de agua de la bahía", "... está en fase con la oscilación en el mar abierto si el canal es largo o la bocana es tortuosa", "se retrasa respecto a la oscilación en mar abierto si el canal es corto y la bocana es amplia"], correct: 0 },
+                { question: "En los puntos anfidrómicos ...", options: ["... la velocidad de la onda de marea es (g-h)^(1/2)", "... la onda mareal tiene longitud de onda muy grande", "... la corriente de marea alcanza su velocidad máxima", "… la oscilación del nivel del mar originada por la marea es nula"], correct: 3 },
+                { question: "El cero hidrográfico ...", options: ["... se determinó durante el s.XIX en la España peninsular como el nivel medio del mar en Alicante.", "... se utiliza en oceanografía, y su diferencia con el nivel del elipsoide se denomina altura elipsoidal", "... es el nivel de la bajamar escorada máxima registrada históricamente", "…es el nivel mínimo predecible de la marea astronómica"], correct: 3 },
+                { question: "La suma de las marejadas ciclónica y barométrica se conoce también por ...", options: ["... rissaga, marrubio, abiki, términos locales originarios de lugares afectados por este fenómeno", "... seiche, término de origen suizo, por la observación de este fenómeno en Lagos glaciales", "... marejada meteorológica, con periodos entre 12:00 h y 12,42 h según la intensidad de la atracción lunar y solar", "... ondas de infragravedad, con períodos superiores a los 30 s e inferiores a las 12:42 h"], correct: 0 }
+
+            ],
+            tema5: [
+                { question: "En el método del pico sobre umbral (POT)...", options: ["…la muestra se obtiene tomando la altura significante máxima anual para cada uno de los años de la serie histórica de datos", "…los valores de la muestra son las alturas significantes pico de temporal que están por debajo del umbral fijado", "…los valores de la muestra son las alturas significantes pico de cualquier oleaje proveniente de la dirección en estudio y separado al menos 5 días del los picos adyacentes", "Ninguna de las anteriores es correcta"], correct: 3 },
+                { question: "El índice de repercusión económica en caso de inutilización de una obra marítima…", options: ["…se emplea para determinar la vida útil mínima de la obra, según la tabla de la ROM 02-90", "…es el cociente de la inversión necesaria para construir la infraestructura entre total de pérdidas directas e indirectas resultantes de la inutilización", "…se utiliza, entre otros, en el cálculo del riesgo o probabilidad de encuentro de la infraestructura con el temporal de proyecto", "…se considera en diferentes rangos o valores límite para obras de fácil reparación (inicio de avería) que para obras difícilmente reparables (destrucción total)"], correct: 2 },
+                { question: "La vida útil de una infraestructura u obra marítima…", options: ["…comienza en el momento en que entre en servicio, y termina con su demolición", "…comienza en el momento en que se inicia su construcción, y termina con su demolición", "…comienza en el momento en que entre en servicio, y termina cuando deja de estar en servicio", "…comienza en el momento en que se inicia su construcción, y termina cuando deja de estar en servicio"], correct: 1 },
+                { question: "El criterio general en la elección de un punto de datos o boya virtual para determinar el régimen extremal de temporales en una zona de la costa es…", options: ["…el punto de datos debe estar expuesto a oleaje proveniente de más direcciones que la zona de Ia costa", "…el punto de datos debe estar expuesto a oleaje proveniente de al menos las mismas direcciones que la zona de la costa", "…el punto de datos estar expuesto a oleaje proveniente de menos direcciones que la zona de la costa", "…el punto de datos puede estar igual o más abrigado que Ia zona de Ia costa"], correct: 1 },
+                { question: "De los siguientes, ¿qué tipo de oleaje NO afecta a las costas de Canarias?", options: ["Oleaje de tipo Sea y Sea+Swell en las costas N, E y SE proveniente del NE y NNE, generado por el alisio", "Oleaje de tipo Sea y Sea+Swell en las costas S, SW y W, proveniente del SW y W generado por huracanes tropicales en el área del Atlántico medio y Caribe", "Oleaje de tipo Sea+SweII en las costas W y ocasionalmente N, proveniente de W y NW, generado por borrascas poco profundas entre 150 y 600 N", "Oleaje de tipo Swell en las costas N y W, proveniente de NW y NNW, generado por borrascas profundas entre 350 y 600N"], correct: 1 },
+                { question: "De los siguientes, ¿cuál es el oleaje más intenso (mayor Hs pico de temporal) que llega a las costas de Canarias?", options: ["Oleaje de Sea y Sea+SweII en las costas N, E y SE proveniente del NE y NNE, generado por el alisio", "Oleaje de tipo Swell en las costas S, SE y SW, proveniente del S, generado por borrascas profundas en el Atlántico sur", "Oleaje de tipo Sea+Swell en las costas W y ocasionalmente N, proveniente de W y NW generado por borrascas poco profundas entre 150 y 600N", "Oleaje de Swell en las costas N y W, proveniente de NW y NNW, generado por borrascas profundas entre 350 y 600N"], correct: 3 },
+                { question: "De los siguientes, ¿cuáles caracterizan a los ciclones extratropicales y los diferencian de los huracanes tropicales?", options: ["Tienen frentes asociados, se debilitan al tocar tierra y la intensidad del viento no disminuye con la altura", "No tienen frentes asociados, no se debilitan al tocar tierra y la intensidad del viento no disminuye la altura", "Tienen frentes asociados, no se debilitan al tocar tierra y la intensidad del viento disminuye con la altura", "Tienen frentes asociados, no se debilitan al tocar tierra y la intensidad del viento no disminuye con la altura"], correct: 3 },
+                { question: "Se llama duración media de excedencia de la altura de ola en régimen medio…", options: ["…al promedio de horas consecutivas en que Ia altura significante del oleaje de los estados del mar supera cierto umbral", "…al promedio del número de horas al año en que Ia altura de ola significante de los estados del mar supera cierto valor", "…al promedio o porcentaje del eventos en los que Ia altura significante de los estados del mar supera cierto umbral durante un tiempo igual o superior al dado", "Ninguna de las anteriores es correcta"], correct: 0 },
+                { question: "Las rosas de oleaje, en la descripción del régimen medio en un lugar de la costa o del océano…", options: ["…recogen en formato gráfico tanta información como las tablas de contingencia altura significante-periodo pico", "…recogen exactamente la misma información que las tablas de contingencia altura significante-dirección de procedencia", "…recogen en formato gráfico tanta información que las tablas de contingencia periodo pico-dirección de procedencia", "…recogen exactamente la misma información que las tablas de contingencia periodo medio-dirección de procedencia"], correct: 1 }
+
+            ],
+            tema7: [
+                { question: "En diques verticales de cajones, son modos de fallo:", options: ["El asentamiento de la banqueta, el deslizamiento del cajón, el vuelco plástico y el deslizamiento de los bloques.", "El vuelco rígido, el deslizamiento del cajón, el vuelco plástico y el deslizamiento de los bloques.", "El asentamiento de la banqueta, el deslizamiento del cajón, el vuelco rígido y el deslizamiento de los bloques.", "El asentamiento de la banqueta, el deslizamiento del cajón, el vuelco rígido y el vuelco plástico."], correct: 3 },
+                { question: "En diques flexibles en talud, son modos de fallo:", options: ["El asentamiento del núcleo, el deslizamiento del manto principal, el vuelco plástico y la erosión de la berma de pie.", "El rebase, el deslizamiento del manto principal, el vuelco plástico y la erosión de la berma de pie.", "El asentamiento del núcleo, el deslizamiento del manto principal, el rebase y la erosión de la berma de pie.", "El asentamiento del núcleo, el deslizamiento del manto principal, el vuelco plástico y el rebase."], correct: 2 },
+                { question: "Los diques flotantes…", options: ["…son menos efectivos como diques de abrigo que los diques en talud no rebasables.", "…son efectivos como diques de abrigo pero sólo para oleaje de largo", "no son efectivos como diques de abrigo, sólo funcionan como estructuras de atraque y amarre", "Ninguna de las anteriores es correcta"], correct: 0 },
+                { question: "De las siguientes afirmaciones, ¿cuál NO es correcta?", options: ["Todas las estructuras de protección de Ia línea de costa están afectadas por la rotura del oleaje en mayor o menor medida", "Un aumento del francobordo en las estructuras rebasables (LCS, low crested structures) reduce el run-up o remontada", "Las estructuras en talud, lisas impermeables generan un menor run-up que las estructuras verticales, rugosas o impermeable", "El run-up y el run-down dependen de la rugosidad, de la permeabilidad y de la pendiente del talud"], correct: 2 },
+                { question: "De las siguientes estructuras, ¿cuáles NO son de contención de tierras y de protección de la línea de costa?", options: ["Diques costeros", "Muros costeros", "Mamparos", "Ninguna de las anteriores"], correct: 3 },
+                { question: "De las siguientes afirmaciones, ¿cuál es correcta?", options: ["El rebase es un fenómeno que se produce sólo cuando el run-up es superior al francobordo de la estructura.", "El caudal de rebase es irregular en el tiempo y a lo largo de la longitud de la estructura.", "Los criterios de diseño geométrico de un dique deben incluir dos niveles: el rebase en régimen medio para estados límite últimos, y el rebase en régimen extremal para estados límite de servicio.", "El caudal de rebase es un parámetro crítico en el diseño, porque un caudal inferior al límite produce una pérdida completa de funcionalidad."], correct: 1 },
+                { question: "La reflexión del oleaje en las estructuras (señale la que NO es correcta)...", options: ["…es más intensa en diques permeables, en talud, que en diques verticales, lisos e impermeables", "…es casi completa cuando se trata de estructuras verticales", "…genera olas con peralte muy alto por interferencia de oleaje incidente y reflejado", "Alguna de las anteriores es correcta"], correct: 0 },
+                { question: "La transmisión del oleaje…", options: ["...tiene mayor coeficiente de transmisión en diques permeables que en diques no permeable", "…es un fenómeno por el cual una parte de la energía del oleaje incidente se disipa contra el dique", "…genera oleaje a sotamar por penetración cuyo periodo es la mitad del periodo incidente", "…es un fenómeno propio de diques de materiales sueltos, pero no ocurre en diques verticales de bloques o de cajones"], correct: 0 },
+                { question: "De las siguientes, ¿cuál NO es una inestabilidad hidráulica típica de piezas del manto principal en diques de materiales sueltos?", options: ["Rotura de unidades por esfuerzos en las arista", "Deslizamiento de un paño de unidades talud abajo", "Volteo y desplazamiento de piezas del manto", "Asentamiento de unidades debidas a compactación del manto o de las subcapas"], correct: 0 }
+
+            ],      
+            tema8: [
+                { question: "El máximo nivel que alcanza el flujo en talud de la ola al romper, medido desde el nivel medio en reposo…", options: ["Se denomina set-down, tiene su nivel mínimo en la rompiente y se denota eta_b", "Se denomina run-down o resaca, y es independiente de la duración del temporal", "Se denomina set-up, y es más acusado en taludes lisos e impermeables", "Se denomina run-up o remontada, y determina la cota de coronación de los diques no rebasables"], correct: 3 },
+                { question: "En el cálculo de la estabilidad de diques flexibles en talud…", options: ["La complejidad de formas (especialmente en escolleras) y la trabazón entre las piezas permiten el cálculo de fuerzas entre elementos del manto principal", "No se pueden hacer cálculos pieza a pieza, sino que se recurre a fórmulas empíricas que analizan el manto principal en su conjunto", "La interacción del flujo en talud de la ola rota con los elementos del manto principal es compleja, pero se conoce bien su funcionamiento", "Ninguna de las anteriores es correcta"], correct: 1 },
+                { question: "En el cálculo de la estabilidad del manto en diques en talud de materiales sueltos, el nivel de avería se mide en términos de:", options: ["La longitud de dique en estado de avería (nivel de avería de Iribarren)", "El número de piezas desplazadas (nivel de daño D de Hudson)", "El área del perfil erosionada (nivel de daño S de Broderick)", "La profundidad del daño (nivel de avería de Van der Meer)"], correct: 2 },
+                { question: "Los cuatro niveles cualitativos de avería, según la clasificación de Losada (la más empleada en España), son, por orden de importancia:", options: ["Inicio de avería, avería de Iribarren, inicio de destrucción y destrucción de Iribarren", "Inicio de avería, avería de Iribarren, inicio de destrucción y destrucción de capas interiores", "Inicio de avería, inicio de destrucción, avería de Iribarren y destrucción total", "Ninguna de las anteriores es correcta"], correct: 1 },
+                { question: "De los siguientes, ¿cuál es un modo de fallo principal del manto de un dique en talud de materiales sueltos?", options: ["Fallo por rotura de piezas (inestabilidad estructural)", "Fallo por nivel de run-up superior (inestabilidad hidráulica)", "Fallo por deslizamiento del primer submanto, bien en paño o bien en círculo de deslizamiento", "Fallo por superación del caudal de rebase crítico (inestabilidad hidráulica)"], correct: 0 },
+                { question: "Las funciones del núcleo de un dique en talud de materiales sueltos multicapa son:", options: ["Servir de base de apoyo, transmitiendo los esfuerzos al terreno, y estableciendo el ángulo de talud del resto de capas", "Es una barrera más o menos impermeable frente a la transmisión de energía del oleaje", "Constituye la plataforma de trabajo para la construcción del dique con medios terrestres", "Todas las anteriores son correctas"], correct: 3 },
+                { question: "En el cálculo de las piezas del manto principal en el morro de un dique en talud de materiales sueltos…", options: ["El criterio principal a seguir es la condición de filtro con las piezas del dique recto", "Se aplica el nivel de inicio de destrucción por ser el morro el elemento más difícilmente reparable", "Se tiene en cuenta la concentración de energía mediante un factor multiplicador del diámetro", "Se multiplica el peso de las piezas del manto principal del tramo recto por un factor K"], correct: 3 },
+                { question: "El fenómeno que se presenta como una ola o grupos de olas aislado, de periodo muy corto y gran peralte que se forma en estuarios de ríos de gran caudal durante la marea astronómica viva creciente…", options: ["Se denomina tsunami de estuario", "Se denomina ola de puerto", "Se denomina tidal bore", "Se denomina seiche"], correct: 2 },
+                { question: "La transmisión del oleaje, como forma de respuesta hidráulica de los diques flexibles, se caracteriza por:", options: ["Las piezas de hormigón que resisten por efecto de forma (tetrápodos, acrópodos, core-locs, dolos, etc.) dan una coronación más permeable, por lo que permiten menor transmisión", "Los diques arrecife (reef breakwaters) son muy impermeables, pudiendo llegar el coeficiente de transmisividad 0,8", "A igual espesor de capas es mayor el coeficiente de transmisión en diques rebasables que en diques no rebasables", "Ninguna de las anteriores es correcta"], correct: 2 },
+                { question: "La reflexión del oleaje en diques en talud de materiales sueltos (señale la que NO es correcta)…", options: ["Es un fenómeno que no se tiene en cuenta durante el diseño porque es de muy pequeña intensidad en estos diques", "Provoca incremento de agitación y olas muy peraltadas en la zona inmediata al dique", "Incrementa la capacidad erosiva al pie de los diques, y en las playas adyacentes", "Influye tanto en la propia estabilidad de la estructura del dique como en la dinámica litoral de la costa más próxima"], correct: 3 }
+
+            ],
+            tema82: [
+                {question: "Un dique vertical se caracteriza por:", options: ["Es necesario más material para su construcción a grandes profundidades que el de un dique en talud a la misma profundidad.", "Refleja prácticamente la totalidad de la energía del oleaje, sin tratar de laminarla por transmisión ni disipación.", "Presenta al menos un paramento vertical, bien por el lado sometido al oleaje, o bien por el lado abrigado.", "La resistencia frente al oleaje viene dado por la pendiente del lado expuesto al mismo."], correct: 1},
+                {question: "La principal desventaja de los diques verticales frente a los diques en talud como solución para el abrigo de dársenas portuarias es:", options: ["…que su comportamiento frente al oleaje es como un monolito sin flexibilidad.", "…que son menos ecológicos porque necesitan de más material y más seleccionado para la banqueta de cimentación y los rellenos.", "…que no necesitan ser cimentados en suelos coherentes o en roca.", "Ninguna de las anteriores es correcta."], correct: 3},
+                {question: "El factor histórico limitante para la construcción de diques verticales que permitiesen el atraque y amarre de buques de gran tamaño fue:", options: ["…la no existencia de rasas costeras a una profundidad apropiada para la cimentación de estos diques.", "…el poco calado de los buques a pesar de su gran desplazamiento.", "…la no disponibilidad de máquinas capaces de construir y colocar bloques cajones de tamaño suficiente.", "Ninguna de las anteriores es correcta."], correct: 2},
+                {question: "De entre los siguientes, ¿cuál se considera en la ROM un modo de fallo de un dique vertical de cajones?", options: ["Modo de fallo operacional hidráulico por rebase y desplazamiento de las piezas.", "Modo de fallo instantáneo o acumulativo por vuelco o deslizamiento por juntas.", "Modo de fallo instantáneo acción de la ola de temporal sobre el monolito: fallo por deslizamiento, vuelco o hundimiento.", "Modo de fallo operacional hidráulico por reflexión en el lado expuesto del dique."], correct: 2},
+                {question: "De entre los siguientes, ¿cuál es una condición en el prediseño de un dique vertical de abrigo (no rebasable)?", options: ["El francobordo debe ser superior a 1,5 veces la altura de ola significante a pie de dique.", "En caso de necesidad, se coloca en zona de rompiente.", "La profundidad sobre la banqueta debe ser inferior al 85% de la profundidad total.", "La manga mínima debe ser como máximo 2,5 veces la altura de ola significante a pie de dique."], correct: 0},
+                {question: "En el cálculo de la estabilidad a deslizamiento, vuelco y hundimiento de un dique vertical de cajones:", options: ["…se tiene en cuenta la presión hidrostática horizontal como parte de la presión dinámica.", "…se tiene en cuenta la presión hidrostática vertical como parte de la subpresión dinámica.", "…la presión hidrostática vertical no se tiene en cuenta, pero la horizontal sí.", "…la presión hidrostática horizontal no se tiene en cuenta, pero la vertical sí."], correct: 3},
+                {question: "De las siguientes, ¿cuál es la modalidad constructiva que limita en menor medida la eslora de los cajones para obras marítimas?", options: ["La construcción en tierra, con botadura y terminación a flote.", "La construcción en dique flotante.", "La construcción en pontona sumergible guiada, con grúa.", "La construcción en catamarán con plataforma sumergible."], correct: 3},
+                {question: "A la hora de conseguir una mayor protección frente al oleaje proveniente de las direcciones secundarias, la configuración óptima para la colocación de diques verticales es:", options: ["…bocanas con diques alineados.", "…bocanas con contradique retranqueado.", "…bocanas con dique y contradique alineados.", "Ninguna de las anteriores."], correct: 1},
+                {question: "Para la estabilidad naval de un cajón durante el remolcado hasta el lugar de fondeo los valores óptimos son:", options: ["4,0-4,5m de francobordo y 0.5-1,0 de altura metacéntrica.", "3,0-3,5 m de francobordo y 2,0-2,5 de altura metacéntrica.", "4,0-4,5 m de francobordo y 2,0-2,5 de altura metacéntrica.", "3,0-3,5 m de francobordo y 0,5-1,0 de altura metacéntrica."], correct: 0}
+            
+            ],
+            tema10: [
+                {question: "Los movimientos del buque que afectan al sobrecalado debido al oleaje son:", options: ["Guiñada, deriva y vaivén", "Guiñada, alteada y vaivén", "Balance, alteada y vaivén", "Balance, alteada y cabeceo"], correct: 3},
+                {question: "Se recomienda que la anchura de la bocana…", options: ["…medida entre puntos con el calado requerido por el buque de proyecto en las condiciones de operatividad más desfavorables, sea como mínimo igual o superior a la eslora total (L) del buque de proyecto", "…medida entre puntos de la línea de flotación del buque de proyecto en las condiciones de operatividad más desfavorables, sea como mínimo igual o superior a la eslora total (L) del buque de proyecto.", "…medida entre puntos con el calado requerido por el buque de proyecto en las condiciones de operatividad más desfavorables, sea como mínimo igual o superior a la eslora entre perpendiculares (Lpp) del buque de proyecto.", "…medida entre puntos de Ia línea de flotación del buque de proyecto en las condiciones de operatividad más desfavorables, sea como mínimo igual o superior a Ia eslora entre perpendiculares (Lpp) del buque de proyecto."], correct: 0},
+                {question: "En el cálculo de la distancia de parada en arribada a puerto (señale la que NO es correcta):", options: ["Se aplica un factor de seguridad x2,OO sobre las distancias calculadas según la ROM.", "Se asume que Ia maniobra de parada se efectúa por un sólo buque cada vez", "En la ROM 3.1-99 se recogen tres trayectorias de parada: en tramo recto, en círculo y en trayectoria mixta.", "Alguna de las anteriores no es correcta"], correct: 3},
+                {question: "De los siguientes casos, ¿en qué condiciones es menor el círculo de maniobra para el mismo buque de proyecto?", options: ["Maniobra de reviro sin ayuda de remolcadores ni ancla, en profundidad superior a 5 veces el calado (h>5D)", "Maniobra de reviro con fondeo del ancla, en profundidad inferior a 1,2 veces el calado (h<1,2D)", "Maniobra de reviro con ayuda de remolcadores, sin hélices transversales de proa", "Los tres círculos tienen el mismo tamaño"], correct: 2},
+                {question: "Para determinar la longitud mínima de las líneas de atraque (señale la que NO es correcta)...", options: ["…se determinarán en función de las esloras de los buques más grandes.", "…se suman resguardos de seguridad para evitar colisiones.", "…en caso de preverse tráfico de buques ro-ro, debe considerarse el espacio de la rampa y tacón de desembarco.", "Alguna de las anteriores no es correcta"], correct: 3},
+                {question: "Según la ROM, en el proyecto de las áreas de flotación y canales de navegación es preciso: (señale la que NO es correcta)", options: ["Definir los requerimientos básicos de remolque que se precise disponer", "Determinar las condiciones climáticas marítimas y atmosféricas límites que permitan Ia utilización de las áreas de navegación o flotación en condiciones normales de operación", "Determinar las infraestructuras de ayuda a Ia navegación en las condiciones climáticas marítimas y atmosféricas límites que permitan su utilización en condiciones normales de operación", "Determinar la configuración geométrica de los espacios de agua y aéreos utilizados, mediante las definiciones precisas en planta y alzado de ejes, alineaciones, curvas, cotas, niveles."], correct: 2},
+                {question: "En relación al diseño de las áreas de flotación y canales de navegación:", options: ["El tamaño de los barcos que tienen previsto operar en el puerto condiciona Ia superficie y profundidad del puerto pero no Ia longitud de las líneas de atraque, que debe ser muy superior a las esloras", "En ausencia de condiciones específicas de operación, el proyectista fijará como buque de proyecto en cada uno de los tipos de barco que analice. el de mayor desplazamiento", "Se dimensionarán para los buques de proyecto de mayores exigencias que puedan operar en la zona que se considere. según las condiciones de operación de la misma, suponiendo que el barco se encuentra en las condiciones de carga más favorables", "Ninguna de las anteriores es correcta"], correct: 1},
+                {question: "De los siguientes parámetros del buque, ¿cuál NO se mide en toneladas?", options: ["El tonelaje de registro bruto o tonelaje Moorson", "El tonelaje de peso muerto", "EI desplazamiento", "Todas las anteriores se miden en toneladas"], correct: 0},
+                {question: "De los siguientes tipos de buques, ¿cuál NO puede utilizar el nuevo juego de esclusas del Canal de Panamá?", options: ["Post Panamax Plus", "Panamax Max", "New Panamax", "Maersk Triple F"], correct: 3},
+                {question: "De los siguientes, ¿qué factores intervienen en la determinación del calado de las áreas de flotación y navegación?", options: ["La resonancia por ondas largas", "El trimado dinámico del buque", "Las imprecisiones de la batimetría", "Todos los anteriores"], correct: 3}
+            
+            ],
+            tema13: [
+                {question: "Se consideran obras de defensa de costas…", options: ["…los muros costeros, los diques costeros y los espigones", "…aquellas que evitan la erosión de las playas, pero no las que reducen el transporte longitudinal de sedimentos", "…aquellas que están dentro de Ia zona surf, aunque se activen sólo durante el temporal", "Todas las anteriores son correctas"], correct: 0},
+                {question: "La estabilidad del manto principal de un dique en talud…", options: ["…está garantizada cuando la altura de la ola está limitada por profundidad", "…aumenta cuando se reduce el número de estabilidad N", "…no depende de la altura de ola que incide contra el dique.", "…no depende de la densidad del material de las piezas del manto"], correct: 1},
+                {question: "En el diseño estructural de diques rompeolas…", options: ["…las olas que inciden perpendicularmente causan menos daño en el cuerpo del dique que las que inciden con inclinación.", "…el umbral de daño sobre el morro no depende de la dirección del oleaje", "…tanto en el cuerpo como en el morro, la estabilidad del dique decrece cuando disminuye el peralte del oleaje.", "…se observan marcadas diferencias en la estabilidad entre diques con distinta anchura en coronación"], correct: 1},
+                {question: "El francobordo adimensional…", options: ["es positivo para diques rompeolas sumergidos y negativo para diques emergidos.", "varía con el nivel de marea y con la altura de ola significante en aguas profundas", "varía con el nivel de marea y con el tamaño de la pieza del manto del dique", "es mayor que 1 para diques rompeolas emergidos y menor que 1 para diques sumergidos."], correct: 1},
+                {question: "Los espigones y diques rompeolas son obras de protección de costas…", options: ["…que reducen la erosión porque ambos reducen el transporte transversal de sedimentos.", "…que reducen la erosión porque ambos reducen el transporte longitudinal de sedimentos.", "…que reducen Ia cantidad de energía ondulatoria que alcanza Ia costa, y por tanto la erosión.", "Ninguna de las anteriores es correcta"], correct: 1},
+                {question: "El coeficiente de transmisividad asociado a un dique exento … (señale la que NO es correcta)", options: ["…se puede calcular como el cociente de la energía transmitida (integral del espectro transmitido) sobre la energía incidente (integral del espectro incidente)", "…es mayor cuanto menor es el francobordo del dique, pero no llega a ser nunca negativo", "…es menor cuanto mayor es el francobordo, pero no llega a ser nunca superior a 1", "Ninguna de las anteriores es correctas"], correct: 0},
+                {question: "El modelo de Pelnard-Considere…", options: ["…describe la evolución de la de un punto de la costa al abrigo de un dique exento a partir del momento de su construcción.", "…permite conocer cómo evoluciona la línea de costa a partir de la construcción de un espigón costero.", "…proporciona un método para conocer cómo se distribuye el material de aporte a partir de la regeneración de una playa, mediante el análisis de la evolución de la línea de costa", "Ninguna de las anteriores es correcta"], correct: 2},
+                {question: "Al volumen de material necesario para que quede retenido una unidad de volumen en la regeneración de una playa se le denomina…", options: ["Factor de sobreaporte", "Francobordo normalizado", "Francobordo adimensional", "Ninguna de las anteriores es correcta"], correct: 0},
+                {question: "De los siguientes, ¿cuál NO es un perfil de aporte correcto en la regeneración de playas?", options: ["Perfil secante, aquel en el que el factor de escala del perfil nativo es menor que el de aporte, y se cortan a profundidad inferior a la de cierre.", "Perfil tangente, aquel en el que el factor de escala del perfil nativo es igual que el de aporte, y son paralelos hasta más allá de la profundidad de cierre.", "Perfil no secante, aquel en el que el factor de escala del perfil nativo es menor que el de aporte, y no se cortan a profundidad inferior a Ia de cierre.", "Perfil sumergido, aquel en el que el factor de escala del perfil nativo es mayor que el de aporte. y la aportación de arena no genera superficie de playa seca"], correct: 3},
+            ], 
+            tema14: [
+                {question: "La normativa sobre calidad de los efluentes en las conducciones de vertido al dominio público marítimo terrestre…", options: ["…actualmente es menos restrictiva que la normativa de vertido al dominio público hidráulico. aunque antiguamente era al contrario", "…actualmente es más restrictiva que la normativa de vertido al dominio público hidráulico, aunque antiguamente era al contrario", "…no incluye las ordenanzas de vertido sistemas de saneamiento municipales e insulares", "…no incluye las ordenanzas de vertido sistemas de saneamiento municipales e insulares"], correct: 1},
+                {question: "De las siguientes, ¿cuáles son comúnmente objeto de vertido al medio natural (cauce, pozo absorbente o mar)?", options: ["Las aguas producto de las estaciones desaladoras de de mar (EDAM)", "Las aguas residuales sin tratamiento adecuado. recogidas por Ia red de saneamiento, tanto domésticas como industriales", "Las residuales depuradas, tratadas en EDAR (secundario)", "Las aguas regeneradas, tratadas en ERAR (terciario) para su reutilización"], correct: 2},
+                {question: "En el proyecto de una conducción de vertido al mar, el terreno menos favorable para atravesar la zona de rompiente…", options: ["…es el fondo de bolos, por su dificultad para ser extraídos y proteger la tubería con ellos una vez esté colocada.", "…es el fondo su alterabilidad frente a las acciones del oleaje.", "…es el fondo arenoso, por Ia dificultad para excavar y enterrar Ia tubería en zanja", "…es el fondo en “rippers”. por la mala protección que ofrece a los tramos de tubería en los puntos bajos"], correct: 0},
+                {question: "De los siguientes, ¿cuál es un emisario submarino?", options: ["Una conducción de vertido al mar con una longitud desde Ia BMVE hasta la boquilla de descarga más próxima de 100 m y una dilución inicial de 1:500", "Una conducción de vertido al mar con una longitud desde la BMVE hasta Ia boquilla de descarga más próxima de 100 m y una dilución inicial de 1:100", "Una de vertido al mar con una longitud Ia BMVE hasta Ia boquilla de descarga más próxima de 500 m y una dilución inicial de 1:500", "Una conducción de vertido al mar con una longitud desde la BMVE hasta la boquilla de descarga más próxima de 500 m y una dilución inicial de 1:100"], correct: 3},
+                {question: "En la Instrucción de conducciones de vertido al mar, se denomina T90…", options: ["…al periodo del oleaje que se supera el 90% del tiempo en régimen medio", "…al tiempo medio necesario para la eliminación del 90% de las colonias de E.Coli en campo lejano.", "…al periodo del oleaje que se supera el 10% del tiempo en régimen medio.", "…al tiempo medio en el que permanece el 90% de Ia colonias de E.CoIi en campo lejano"], correct: 1},
+                {question: "En relación a la Instrucción de 13 de julio 1993, de conducciones de vertido al mar, las conducciones de vertido de salmuera al dominio público marítimo terrestre…", options: ["están incluidas en el ámbito de aplicación de la Instrucción, porque todas son conducciones de vertido de residuales (art. 1)", "no están incluidas en el ámbito de aplicación de la Instrucción, porque no se consideran conducciones de vertido (art. 1)", "están incluidas en el ámbito de aplicación de Ia Instrucción, porque se consideran conducciones cie vertido de aguas residuales (art 2)", "están incluidas en el ámbito de aplicación de Ia Instrucción, porque todas son emisarios submarinos (art 1)"], correct: 0},
+                {question: "De los siguientes, ¿cuál es un factor que influye en los coeficientes de autodepuración de las aguas en las zonas de vertido (campo lejano)?", options: ["La insolación, y especialmente la radiación ultravioleta que incide sobre la superficie del mar.", "La velocidad de las corrientes del agua del mar.", "La presencia de nitritos y fosfatos en el efluente.", "La concentración de sólidos en suspensión del efluente"], correct: 0},
+                {question: "De los siguientes, ¿cuál es un documento necesario en el proyecto de una conducción de vertido al mar, según la Instrucción de 13 de julio de 1993?", options: ["El estudio de las redes de saneamiento en la zona afectada,", "El catálogo de los usos permitidos en la zona", "El estudio de las diferentes alternativas de vertido", "EI catálogo de los usos no permitidos en Ia zona"], correct: 2},
+                {question: "La principal desventaja de la utilización conjunta de una misma conducción de vertido por una EDAR y una EDAM es…", options: ["…que la salmuera que produce La EDAM pasa a ser considerada un agua residual al estar mezclada con el efluente de la EDAR.", "…que la mezcla del efluente de la EDAR con la salmuera de la EDAM adquiere una salinidad y densidad similar a la del agua del mar.", "…que se empeoran mucho los parámetros de contaminación microbiológica en campo cercano como consecuencia del choque osmótico.", "…que se agrava la afección producida por la salmuera en los organismos del fondo del mar."], correct: 1},
+                {question: "¿Cuáles son los requisitos que establece la Instrucción de 13 de julio de 1993 en el caso especial de conducción de vertido en playas?", options: ["Que la conducción sea abierta, con su tramo terrestre de más de un metro de profundidad.", "Que Ia dilución en campo cercano sea superior a 1:100 en cualquier condición de funcionamiento,", "Que el punto de vertido se encuentre a más de 200 metros de línea de costa en bajamar viva equinoccial.", "Que el punto de vertido se encuentre a menos de dos metros de profundidad en bajamar viva equinoccial"], correct: 2}
+ ],
+            random: [] // Para preguntas aleatorias
+        };
+
+        // Inicializar preguntas aleatorias
+        Object.keys(questions).forEach(theme => {
+            if (theme !== 'random') {
+                questions.random.push(...questions[theme]);
+            }
+        });
+
+        let currentTheme;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let handicapValue = 0;
+        let incorrectCount = 0;
+        let totalQuestions = 0;
+
+        // Función para barajar las respuestas
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Intercambiar elementos
+            }
+        }
+
+        function startQuiz() {
+            const theme = document.getElementById('theme').value;
+            handicapValue = parseInt(document.getElementById('handicapValue').value) || 0;
+            currentTheme = theme;
+
+            if (!questions[currentTheme]) {
+                alert('Tema no encontrado');
+                return;
+            }
+
+            if (currentTheme === 'random') {
+                totalQuestions = parseInt(prompt('¿Cuántas preguntas deseas responder?')) || questions.random.length;
+                questions.random = questions.random.sort(() => Math.random() - 0.5).slice(0, totalQuestions);
+            } else {
+                totalQuestions = questions[currentTheme].length;
+            }
+
+            document.querySelector('.container').style.display = 'none';
+
+            const quizContainer = document.createElement('div');
+            quizContainer.classList.add('quiz-container');
+            quizContainer.innerHTML = 
+                `<h1>Cuestionario</h1>
+                <div class="question" id="question">Pregunta</div>
+                <ul class="answers" id="answers"></ul>
+                <button onclick="submitAnswer()">Enviar respuesta</button>`;
+            document.body.appendChild(quizContainer);
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestionIndex >= totalQuestions) {
+                const finalScore = Math.max(0, score - Math.floor(incorrectCount / handicapValue));
+                document.querySelector('.quiz-container').innerHTML = 
+                    `<h1>¡Has terminado!</h1>
+                    <p>Puntuación final: ${finalScore}/${totalQuestions}</p>
+                    <button onclick="restartQuiz()">Volver al inicio</button>`;
+                return;
+            }
+
+            const questionData = questions[currentTheme][currentQuestionIndex];
+            document.getElementById('question').innerText = questionData.question;
+            const answersEl = document.getElementById('answers');
+            answersEl.innerHTML = '';
+
+            // Barajar las respuestas
+            const shuffledOptions = [...questionData.options];
+            shuffleArray(shuffledOptions);
+
+            shuffledOptions.forEach((option, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<input type="radio" name="answer" id="answer${index}" value="${index}"> <label for="answer${index}">${option}</label>`;
+                answersEl.appendChild(li);
+            });
+
+            // Guardar el índice original del índice correcto para verificarlo más tarde
+            questionData.shuffledIndexes = shuffledOptions.map(option => questionData.options.indexOf(option));
+        }
+
+        function submitAnswer() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            if (!selected) {
+                alert('Por favor selecciona una respuesta.');
+                return;
+            }
+
+            const answer = parseInt(selected.value);
+            const questionData = questions[currentTheme][currentQuestionIndex];
+            const answersEl = document.getElementById('answers');
+
+            // Verificar la respuesta correcta en el nuevo orden
+            const correctAnswerIndex = questionData.shuffledIndexes.indexOf(questionData.correct);
+            if (answer === correctAnswerIndex) {
+                score++;
+                answersEl.children[answer].classList.add('correct');
+            } else {
+                incorrectCount++;
+                answersEl.children[answer].classList.add('incorrect');
+                answersEl.children[correctAnswerIndex].classList.add('correct');
+            }
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                showQuestion();
+            }, 1500);
+        }
+
+        function restartQuiz() {
+            location.reload();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            
+        </div>
+        <h1>Marítima</h1>
+        <label for="theme">Cuestionario a realizar</label>
+        <select id="theme">
+            <option value="random">Aleatorio</option>
+            <option value="tema0">Tema 0</option>
+            <option value="tema1">Tema 1</option>
+            <option value="tema2">Tema 2</option>
+            <option value="tema3">Tema 3</option>
+            <option value="tema4">Tema 4</option>
+            <option value="tema5">Tema 5</option>
+            <option value="tema7">Tema 7</option>
+            <option value="tema8">Tema 8</option>
+            <option value="tema82">Tema 8.2</option>
+            <option value="tema10">Tema 10</option>
+            <option value="tema13">Tema 13</option>
+            <option value="tema14">Tema 14</option>
+        </select>
+
+        <div class="options">
+            <input type="checkbox" id="showAnswers" checked> <label for="showAnswers">Mostrar respuestas</label><br>
+            <label for="handicapValue">Incorrectas que restan una correcta:</label>
+            <input type="number" id="handicapValue" value="2" min="0">
+        </div>
+
+        <button onclick="startQuiz()">Empezar</button>
+    </div>
+</body>
