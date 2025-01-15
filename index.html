@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marítima</title>
+    <title>Cuestionario Marítima</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,10 +53,6 @@
         button:hover {
             background-color: #005fa3;
         }
-        .options {
-            text-align: left;
-            margin-bottom: 15px;
-        }
         .quiz-container {
             max-width: 600px;
             margin: 0 auto;
@@ -89,7 +85,7 @@
         }
     </style>
     <script>
-        const questions = {
+       const questions = {
             tema0: [
                 { question: "Los 46 puertos de interés general en España...", options: ["... están gestionados por las 28 autoridades portuarias.", "... están gestionados directamente por Puertos del Estado.", "... están gestionados por las 46 autoridades portuarias.", "... se gestionan por las Comunidades Autónomas en régimen de cesión de competencias."], correct: 0 },
                 { question: "De las siguientes condiciones, ¿cuál NO es suficiente para que un puerto sea declarado de interés general?", options: ["Que registre un tráfico de pasajeros muy importante.", "Que el hinterland abarque de forma significativa a más de una comunidad autónoma.", "Que sirva a industrias o establecimientos de importancia estratégica para la economía nacional.", "Que constituyan elementos esenciales para la seguridad del tráfico marítimo, especialmente en las islas."], correct: 0 },
@@ -165,6 +161,7 @@
                 { question: "Las rosas de oleaje, en la descripción del régimen medio en un lugar de la costa o del océano…", options: ["…recogen en formato gráfico tanta información como las tablas de contingencia altura significante-periodo pico", "…recogen exactamente la misma información que las tablas de contingencia altura significante-dirección de procedencia", "…recogen en formato gráfico tanta información que las tablas de contingencia periodo pico-dirección de procedencia", "…recogen exactamente la misma información que las tablas de contingencia periodo medio-dirección de procedencia"], correct: 1 }
 
             ],
+            
             tema7: [
                 { question: "En diques verticales de cajones, son modos de fallo:", options: ["El asentamiento de la banqueta, el deslizamiento del cajón, el vuelco plástico y el deslizamiento de los bloques.", "El vuelco rígido, el deslizamiento del cajón, el vuelco plástico y el deslizamiento de los bloques.", "El asentamiento de la banqueta, el deslizamiento del cajón, el vuelco rígido y el deslizamiento de los bloques.", "El asentamiento de la banqueta, el deslizamiento del cajón, el vuelco rígido y el vuelco plástico."], correct: 3 },
                 { question: "En diques flexibles en talud, son modos de fallo:", options: ["El asentamiento del núcleo, el deslizamiento del manto principal, el vuelco plástico y la erosión de la berma de pie.", "El rebase, el deslizamiento del manto principal, el vuelco plástico y la erosión de la berma de pie.", "El asentamiento del núcleo, el deslizamiento del manto principal, el rebase y la erosión de la berma de pie.", "El asentamiento del núcleo, el deslizamiento del manto principal, el vuelco plástico y el rebase."], correct: 2 },
@@ -202,6 +199,18 @@
                 {question: "Para la estabilidad naval de un cajón durante el remolcado hasta el lugar de fondeo los valores óptimos son:", options: ["4,0-4,5m de francobordo y 0.5-1,0 de altura metacéntrica.", "3,0-3,5 m de francobordo y 2,0-2,5 de altura metacéntrica.", "4,0-4,5 m de francobordo y 2,0-2,5 de altura metacéntrica.", "3,0-3,5 m de francobordo y 0,5-1,0 de altura metacéntrica."], correct: 0}
             
             ],
+            tema9: [
+                {question: "Una obra de atraque, según la ROM...", options: ["... tiene como objetivo inmovilizar a los buques en puerto.", "... debe mantener a los buques al abrigo del viento y del oleaje.", "... debe mantener en todo momento unas condiciones seguras para operar.", "... puede no permitir el desarrollo de las operaciones portuarias de estiba, desestiba y transbordo de mercancías, vehículos y pasajeros."], correct: 0},
+                {question: "Los cables de amarre de un buque a un pantalán o muelle reciben el nombre de ...", options: ["...largo, cruzado y revés", "…amarra, cruzado y revés", "…largo, esprín y través", "…amarra, cruzado y través"], correct: 2},
+                {question: "Los muelles para carga y descarga de contenedores se consideran dentro de las obras de atraque de uso comercial como ...", options: ["...de graneles sólidos/líquidos containerizados", "...de mercancía rodada (ro-ro)", "...de mercancía y pasajeros", "Ninguna de las anteriores es correcta"], correct: 3},
+                {question: "Los duques de alba se consideran obras de atraque ...", options: ["... abiertas", "... cerradas", "... de recintos cerrados", "Ninguna de las anteriores es correcta"], correct: 0},
+                {question: "En las obras de atraque abiertas es habitual ...", options: ["... colocar una plataforma de operación continua cimentada sobre pilotes", "... rellenar el trasdós con material granular que reduzca el empuje activo del relleno", "... dimensionar la viga de cantil para el peso de las grúas de carga y descarga de contenedores", "... retranquear la viga de cantil para emplear el peso de las tierras en favor de la estabilidad"], correct: 0},
+                {question: "Las obras de atraque cerradas, construidas con recintos de tablestacas, (señale la que NO es correcta)...", options: ["...pueden emplearse para el atraque de barcos de gran desplazamiento a pesar de su fragilidad", "...pueden tener mayor manga que un obra de cajones de calado similar", "...no necesitan relleno de material granular (pedraplén) en el trasdós, por su manga", "...precisan del relleno del recinto con material seleccionado una vez finalizado el mismo"], correct: 2},
+                {question: "De las siguientes, ¿cuál recomienda la ROM como obra de atraque para la carga y descarga de mercancía general contenerizada?", options: ["pantalanes continuos", "duques de alba", "muelles", "pantalanes discontinuos"], correct: 2},
+                {question: "Según la ROM, se denominan cargas de impacto ...", options: ["... a las cargas generadas entre un buque y la estructura de atraque desde el momento en que se produce el primer contacto entre ellos hasta que finalmente se alcanza el reposo", "… a las cargas de atraque paralelas a la superficie de atraque", "... a las fuerzas de reacción del sistema de atraque en función de la energía absorbida por el sistema y de la deformabilidad de los elementos", "Ninguna de las anteriores es correcta"], correct: 3},
+                {question: "El coeficiente de masa hidrodinámica ...", options: ["... es el cociente de la masa del buque Md entre la suma de la masa del buque Md más la del agua que moviliza Mw", "… depende de la configuración bajo la línea de flotación (calado/manga), del resguardo bajo la quilla, de las corrientes en el área de atraque, y de la rigidez de la estructura de atraque", "... toma valores mayores o iguales que 1,70 para resguardos entre 0,1.D y 1,5-D", "... toma el valor 1,30 para resguardos mayores que 1,5-D"], correct: 1}
+
+            ],
             tema10: [
                 {question: "Los movimientos del buque que afectan al sobrecalado debido al oleaje son:", options: ["Guiñada, deriva y vaivén", "Guiñada, alteada y vaivén", "Balance, alteada y vaivén", "Balance, alteada y cabeceo"], correct: 3},
                 {question: "Se recomienda que la anchura de la bocana…", options: ["…medida entre puntos con el calado requerido por el buque de proyecto en las condiciones de operatividad más desfavorables, sea como mínimo igual o superior a la eslora total (L) del buque de proyecto", "…medida entre puntos de la línea de flotación del buque de proyecto en las condiciones de operatividad más desfavorables, sea como mínimo igual o superior a la eslora total (L) del buque de proyecto.", "…medida entre puntos con el calado requerido por el buque de proyecto en las condiciones de operatividad más desfavorables, sea como mínimo igual o superior a la eslora entre perpendiculares (Lpp) del buque de proyecto.", "…medida entre puntos de Ia línea de flotación del buque de proyecto en las condiciones de operatividad más desfavorables, sea como mínimo igual o superior a Ia eslora entre perpendiculares (Lpp) del buque de proyecto."], correct: 0},
@@ -214,6 +223,16 @@
                 {question: "De los siguientes tipos de buques, ¿cuál NO puede utilizar el nuevo juego de esclusas del Canal de Panamá?", options: ["Post Panamax Plus", "Panamax Max", "New Panamax", "Maersk Triple F"], correct: 3},
                 {question: "De los siguientes, ¿qué factores intervienen en la determinación del calado de las áreas de flotación y navegación?", options: ["La resonancia por ondas largas", "El trimado dinámico del buque", "Las imprecisiones de la batimetría", "Todos los anteriores"], correct: 3}
             
+            ],
+            tema12: [
+                {question: "Según el sistema de clasificación genética de singularidades costeras de Suárez Bores, el delta de un río ...", options: ["…es una singularidad dinámica positiva", "... es una barrera irrebasable (integral) que genera una singularidad geométrica positiva", "…es una singularidad másica positiva", "... es una singularidad geométrica negativa"], correct: 0},
+                {question: "Los tramos de costa sedimentaria semiabiertos (señale la que NO es correcta)) ...", options: ["…se caracterizan por tener un único punto rígidos o de control", "... tienen un perfil transversal completo, es decir, el transporte transversal no está coartado por elementos rígidos", "... la forma en planta viene determinada por la difracción del oleaje", "... el transporte litoral es de magnitud similar al de una costa abierta, y muy superior al de un tramo cerrado"], correct: 0},
+                {question: "El punto en el perfil transversal de una costa sedimentaria a partir del cual las partículas no son desplazadas por el transporte litoral...", options: ["…se llama punto de Cornaglia", "…se encuentra a la profundidad de cierre de la playa", "…es el punto neutro del perfil de la playa", "Ninguna de las anteriores es correcta"], correct: 1},
+                {question: "El caudal de transporte eólico de sedimentos en la costa (señale la que NO es correcta)", options: ["... se mide en unidad de volumen transportado por unidad de tiempo y anchura (ej. m3/s/m)", "... se mide en unidad de volumen en banco por unidad de tiempo (ej. m3/h)", "... constituye una fuente o un sumidero de sedimentos, dependiendo de la dirección predominante", "... tiene un valor despreciable en comparación con el transporte litoral, y por eso no se considera en la dinámica costera"], correct: 3},
+                {question: "El transporte litoral real generalmente es inferior al transporte potencial y capacidad de transporte. ¿En cuál de los siguientes casos tiene un caudal similar?", options: ["En playas erosionadas en costas protegidas por muro y diques", "En escarpes costeros de material cohesivo (bluff) en los que la capa de arenas es discontinua", "En costas sedimentarias abiertas de perfil completo", "En ninguno de los casos anteriores"], correct: 2},
+                {question: "Los modelos parabólicos de perfil transversal de playas (señale la que NO es correcta)...", options: ["... se caracterizan porque la forma del perfil de playa sigue un curva parabólica h = A-y^(2/3)", "... tienen el inconveniente de que no explican la existencia de barra y cuenco (sandbar & runnel)", "... tienen pendiente vertical en la orilla", "... se caracterizan porque el factor de escala de perfil de playa A es adimensional"], correct: 3},
+                {question: "De los siguientes, ¿cuáles son formas costeras de depósito?", options: ["Flechas, cordones y albuferas", "Puntas, cordones y golas", "Puntas, tómbolos y albuferas", "Flechas, tómbolos y cordones"], correct: 3},
+                {question: "En Ingeniería de Costas, la granulometría del sedimento se clasifica según...", options: ["…la media, la dispersión, la simetría y la curtosis del diámetro D", "…la media, la dispersión, la simetría y la curtosis del parámetro de Wentworth phi", "…la media y la dispersión del diámetro D y la densidad del material", "…la media y la dispersión del parámetro de Wentworth phi y la densidad del material"], correct: 1}
             ],
             tema13: [
                 {question: "Se consideran obras de defensa de costas…", options: ["…los muros costeros, los diques costeros y los espigones", "…aquellas que evitan la erosión de las playas, pero no las que reducen el transporte longitudinal de sedimentos", "…aquellas que están dentro de Ia zona surf, aunque se activen sólo durante el temporal", "Todas las anteriores son correctas"], correct: 0},
@@ -237,7 +256,27 @@
                 {question: "De los siguientes, ¿cuál es un documento necesario en el proyecto de una conducción de vertido al mar, según la Instrucción de 13 de julio de 1993?", options: ["El estudio de las redes de saneamiento en la zona afectada,", "El catálogo de los usos permitidos en la zona", "El estudio de las diferentes alternativas de vertido", "EI catálogo de los usos no permitidos en Ia zona"], correct: 2},
                 {question: "La principal desventaja de la utilización conjunta de una misma conducción de vertido por una EDAR y una EDAM es…", options: ["…que la salmuera que produce La EDAM pasa a ser considerada un agua residual al estar mezclada con el efluente de la EDAR.", "…que la mezcla del efluente de la EDAR con la salmuera de la EDAM adquiere una salinidad y densidad similar a la del agua del mar.", "…que se empeoran mucho los parámetros de contaminación microbiológica en campo cercano como consecuencia del choque osmótico.", "…que se agrava la afección producida por la salmuera en los organismos del fondo del mar."], correct: 1},
                 {question: "¿Cuáles son los requisitos que establece la Instrucción de 13 de julio de 1993 en el caso especial de conducción de vertido en playas?", options: ["Que la conducción sea abierta, con su tramo terrestre de más de un metro de profundidad.", "Que Ia dilución en campo cercano sea superior a 1:100 en cualquier condición de funcionamiento,", "Que el punto de vertido se encuentre a más de 200 metros de línea de costa en bajamar viva equinoccial.", "Que el punto de vertido se encuentre a menos de dos metros de profundidad en bajamar viva equinoccial"], correct: 2}
- ],
+            ],
+            examen2324: [
+                {question: "El dominio público portuario estatal …", options: ["… No se incluye en el dominio público marítimo terrestre, que solo afecta a la costa no portuaria.", "… No incluye las obras que el Estado o las Autoridades Portuarias realicen en dicho dominio.", "… No incluye las aguas abrigadas de los puertos de titularidad autonómica.", "… No incluye los faros y obras aisladas de señalización marítima."], correct: 3},
+                {question: "Según el diagrama de Le Mehaute, la teoría que mejor modeliza el oleaje en aguas someras …", options: ["… Es la teoría c-noidal.", "… Es la teoría de Stokes de 5º orden.", "… Es la teoría de Airy.", "… Es la teoría de Stokes de 2º orden."], correct: 0},
+                {question: "La relación de dispersión, según la teoría lineal del oleaje …", options: ["… Relaciona la longitud de la ola en aguas poco profundas con el periodo.", "… Establece una dependencia entre la celeridad de la ola y su longitud de onda en aguas someras.", "… Relaciona la longitud de la ola en aguas profundas con el periodo.", "… Establece una dependencia entre la celeridad y la longitud de la ola en aguas profundas."], correct: 0},
+                {question: "Como consecuencia de la ley de Snell …", options: ["… El oleaje en su propagación tiende a avanzar en dirección paralela a la costa.", "… El oleaje en su propagación tiende a avanzar en dirección perpendicular a la cresta.", "… El oleaje en su propagación concentra su energía en las bahías y playas abiertas.", "… El oleaje en su propagación concentra su energía en los cabos y salientes de la costa."], correct: 3},
+                {question: "Una conducción cerrada que transporta aguas residuales de tierra al mar, de al menos 500m es:", options: ["Un emisario submarino, si la dilución inicial es menor que 100:1.", "Una conducción de desagüe, si la dilución inicial es menor que 100:1.", "Una conducción de vertido, sólo si la dilución es mayor que 1000:1.", "Un emisario submarino, cualquiera que sea la dilución inicial."], correct: 1},
+                {question: "¿Cuál/es de los siguientes parámetros se calcula a partir de los momentos espectrales? Puede haber una o más soluciones.", options: ["La profundidad en rotura del oleaje.", "El periodo medio del oleaje.", "La altura de ola significante.", "La dirección de pico del oleaje."], correct: [1, 2]},
+                {question: "La rugosidad e inclinación del talud de un dique influyen sobre el run-up de la siguiente manera.", options: ["A mayor rugosidad y menor inclinación, mayor run-up.", "A menor rugosidad y mayor inclinación, mayor run-up.", "A mayor rugosidad y mayor inclinación, mayor run-up.", "A menor rugosidad y menor inclinación, mayor run-up."], correct: 0},
+                {question: "El fetch efectivo en el método JONSWAP de determinación de la altura y periodo del oleaje de viento…", options: ["… se mide en una dirección en un ángulo de 15º con la dirección del viento.", "… puede ser mayor que el fetch geométrico si el viento dura lo suficiente.", "… puede ser menor que el fetch geométrico si el viento no dura lo suficiente.", "… se mide en una dirección en un ángulo de 7,5º con la dirección del viento."], correct: 1},
+                {question: "Al número de horas al año en que se supera un valor dado de la altura de ola se le denomina …", options: ["… duración media de excedencia.", "… persistencia.", "… duración máxima de excedencia.", "… tiempo de inoperatividad."], correct: 0},
+                {question: "La morfología más desfavorable para la construcción del tramo en rompiente de una conducción de desagüe tierra-mar es:", options: ["Morfología de bolos.", "Morfología de arenas.", "Morfología en rippers.", "Morfología en roca."], correct: 0},
+                {question: "El periodo de la onda de marea lunar principal o de equilibrio (M1) …", options: ["… equivale al de una rotación completa de la Tierra sobre su eje.", "… es influenciada por la atracción de la Tierra y la fuerza centrífuga de la Luna alrededor del Sol.", "… provoca que la marea tenga la misma amplitud sobre todos los puntos de un meridiano.", "… es algo mayor que el de la onda solar principal, lo que explica la variación de carreras de marea."], correct: 0},
+                {question: "El oleaje que ya ha abandonado el área de generación y se ha propagado largas distancias …", options: ["… presenta olas muy peraltadas, con periodos pequeños pero en un amplio rango de frecuencia.", "… se denomina swell.", "… es oleaje de viento parcialmente desarrollado.", "… es oleaje de viento totalmente desarrollado."], correct: 1},
+                {question: "El método del pico sobre umbral (POT) …", options: ["… es un método para calcular el régimen medio del oleaje.", "… contempla un intervalo mínimo de separación entre alturas de ola máxima.", "… sirve para discriminar cuál es la distribución estadística que mejor ajusta los datos de oleaje.", "… proporciona una relación entre el periodo pico y la altura de ola máxima."], correct: 1},
+                {question: "El riesgo o probabilidad de alcance de un temporal de mar depende de …", options: ["… el periodo del oleaje y el nº medio de temporales al año.", "… el periodo de retorno y el nº medio de temporales al año.", "… el periodo de retorno y la vida útil de la obra.", "… la vida útil de las obras y el nº medio de temporales al año."], correct: 2},
+                {question: "La ecuación de Morison para la respuesta estructural de diques de materiales sueltos determina que en aguas someras, el cociente de las fuerzas de arrastre y arranque sobre las fuerzas inerciales es …", options: ["… aproximadamente igual al número de estabilidad.", "… mayor cuanto más grande sea el tamaño de las piezas.", "… constante.", "… proporcional al periodo de la ola incidente."], correct: 0},
+                {question: "El run-down.", options: ["Es el máximo nivel que alcanza el flujo de la ola rota sobre un talud.", "Determina la cota de coronación de los diques no rebasables.", "Es el mínimo nivel que alcanza el flujo de la ola rota sobre un talud al retirarse.", "No depende de la interacción con la ola precedente."], correct: 2},
+                {question: "Según la fórmula de Waal y Van del Meer para el cálculo del run-up.", options: ["Su valor no depende de la altura de ola significante.", "Su valor es independiente del ángulo de incidencia del oleaje.", "Su valor depende de la existencia de berma en el talud.", "Su valor es independiente de la rugosidad del talud."], correct: 2},
+
+            ],
             random: [] // Para preguntas aleatorias
         };
 
@@ -254,6 +293,7 @@
         let handicapValue = 0;
         let incorrectCount = 0;
         let totalQuestions = 0;
+        let userAnswers = [];
 
         // Función para barajar las respuestas
         function shuffleArray(array) {
@@ -288,7 +328,7 @@
                 `<h1>Cuestionario</h1>
                 <div class="question" id="question">Pregunta</div>
                 <ul class="answers" id="answers"></ul>
-                <button onclick="submitAnswer()">Enviar respuesta</button>`;
+                <button id="nextButton" onclick="submitAnswer()">Enviar respuesta</button>`;
             document.body.appendChild(quizContainer);
             showQuestion();
         }
@@ -298,6 +338,8 @@
                 const finalScore = Math.max(0, score - Math.floor(incorrectCount / handicapValue));
                 document.querySelector('.quiz-container').innerHTML = 
                     `<h1>¡Has terminado!</h1>
+                    <p>Respuestas correctas: ${score}/${totalQuestions}</p>
+                    <p>Respuestas incorrectas: ${incorrectCount}/${totalQuestions}</p>
                     <p>Puntuación final: ${finalScore}/${totalQuestions}</p>
                     <button onclick="restartQuiz()">Volver al inicio</button>`;
                 return;
@@ -338,16 +380,23 @@
             if (answer === correctAnswerIndex) {
                 score++;
                 answersEl.children[answer].classList.add('correct');
+                userAnswers.push({question: questionData.question, answer: questionData.options[answer], correct: true});
             } else {
                 incorrectCount++;
                 answersEl.children[answer].classList.add('incorrect');
                 answersEl.children[correctAnswerIndex].classList.add('correct');
+                userAnswers.push({question: questionData.question, answer: questionData.options[answer], correct: false});
             }
 
-            setTimeout(() => {
-                currentQuestionIndex++;
-                showQuestion();
-            }, 1500);
+            document.getElementById('nextButton').innerText = 'Siguiente pregunta';
+            document.getElementById('nextButton').onclick = nextQuestion;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            showQuestion();
+            document.getElementById('nextButton').innerText = 'Enviar respuesta';
+            document.getElementById('nextButton').onclick = submitAnswer;
         }
 
         function restartQuiz() {
@@ -357,11 +406,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            
-        </div>
-        <h1>Marítima</h1>
-        <label for="theme">Cuestionario a realizar</label>
+        <h1>Cuestionario Marítima</h1>
+        <label for="theme">Tema</label>
         <select id="theme">
             <option value="random">Aleatorio</option>
             <option value="tema0">Tema 0</option>
@@ -373,17 +419,17 @@
             <option value="tema7">Tema 7</option>
             <option value="tema8">Tema 8</option>
             <option value="tema82">Tema 8.2</option>
+            <option value="tema9">Tema 9</option>
             <option value="tema10">Tema 10</option>
+            <option value="tema12">Tema 12</option>
             <option value="tema13">Tema 13</option>
             <option value="tema14">Tema 14</option>
+            <option value="examen2324">Examen 23-24</option>
         </select>
+        <label for="handicapValue">Valor del Handicap (respuestas incorrectas que restan):</label>
+        <input type="number" id="handicapValue" value="2" min="0">
 
-        <div class="options">
-            <input type="checkbox" id="showAnswers" checked> <label for="showAnswers">Mostrar respuestas</label><br>
-            <label for="handicapValue">Incorrectas que restan una correcta:</label>
-            <input type="number" id="handicapValue" value="2" min="0">
-        </div>
-
-        <button onclick="startQuiz()">Empezar</button>
+        <button onclick="startQuiz()">Empezar Quiz</button>
     </div>
 </body>
+</html>
